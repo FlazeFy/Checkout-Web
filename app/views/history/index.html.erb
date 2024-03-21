@@ -1,0 +1,50 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Type</th>
+            <th scope="col">Description</th>
+            <th scope="col">Location</th>
+            <th scope="col">Properties</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @checkouts.each do |c| %>
+            <tr>
+                <td><%= c.checkout_type.titleize %></td>
+                <td><%= c.checkout_desc %></td>
+                <td>
+                    <p><b>From :</b> <%= c.checkout_origin.titleize %></p>
+                    <p><b>To :</b> <%= c.checkout_destination.titleize %></p>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#propsModal"><i class="fa-solid fa-circle-info"></i></button>
+
+                    <div class="modal fade" id="propsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Properties</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h6 class="mb-0">Created At</h6>
+                                    <p><%= c.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+                                    <h6 class="mb-0">Updated At</h6>
+                                    <p><%= c.updated_at.strftime("%Y-%m-%d %H:%M") %></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

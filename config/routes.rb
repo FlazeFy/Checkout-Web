@@ -3,4 +3,14 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+  Rails.application.routes.draw do
+    scope "/", controller: "checkout" do
+      get "/", action: "index", as: "checkout"
+    end 
+    
+    scope "/history", controller: "history" do
+      get "/", action: "index", as: "history"
+    end 
+  end  
 end
