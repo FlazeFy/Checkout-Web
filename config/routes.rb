@@ -12,5 +12,9 @@ Rails.application.routes.draw do
     scope "/history", controller: "history" do
       get "/", action: "index", as: "history"
     end 
+
+    scope "/setting", controller: "setting" do
+      get "/", action: "index", as: "setting"
+    end 
   end  
 end

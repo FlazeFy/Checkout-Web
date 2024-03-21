@@ -1,0 +1,71 @@
+<a class="btn btn-danger mb-4 mt-2 rounded-pill py-3 px-4" href="/"><i class="fa-solid fa-circle-chevron-left me-2"></i> To Homepage</a>
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <h2>All Origin</h2>
+        <% @origin.each do |dt| %>
+            <div class="container-fluid px-4 py-3 mb-2 rounded">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6><%= dt.place_name.titleize %></h6>
+                        <p class="mb-0"><b>Created At</b> <%= dt.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editOriginModal_<%= dt.id %>"><i class="fa-solid fa-pen-to-square"></i></button>
+
+                        <div class="modal fade" id="editOriginModal_<%= dt.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Edit Origin</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingInput" value="<%= dt.place_name %>" required>
+                                            <label for="floatingInput">Place Name</label>
+                                        </div>
+                                        <button class="btn btn-success w-100 mt-2 py-3 px-2">Save Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <h2>All Destination</h2>
+        <% @destination.each do |dt| %>
+            <div class="container-fluid px-4 py-3 mb-2 rounded">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6><%= dt.place_name.titleize %></h6>
+                        <p class="mb-0"><b>Created At</b> <%= dt.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editDestinationModal_<%= dt.id %>"><i class="fa-solid fa-pen-to-square"></i></button>
+
+                        <div class="modal fade" id="editDestinationModal_<%= dt.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Edit Destination</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingInput" value="<%= dt.place_name %>" required>
+                                            <label for="floatingInput">Place Name</label>
+                                        </div>
+                                        <button class="btn btn-success w-100 mt-2 py-3 px-2">Save Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

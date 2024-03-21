@@ -13,7 +13,7 @@
                     <div class="form-floating">
                         <select class="form-select" aria-label="Floating label select example">
                             <% @dct_checkout_type.each do |dct| %>
-                                <option value="<%= dct.dictionary_name %>"><%= dct.dictionary_name %></option>
+                                <option value="<%= dct.dictionary_name %>"><%= dct.dictionary_name.titleize %></option>
                             <% end %>
                         </select>
                         <label for="floatingSelect">Checkout Type</label>
@@ -21,7 +21,7 @@
                     <div class="form-floating mt-2">
                         <select class="form-select" aria-label="Floating label select example">
                             <% @origin.each do |dt| %>
-                                <option value="<%= dt.place_name %>"><%= dt.place_name %></option>
+                                <option value="<%= dt.place_name %>"><%= dt.place_name.titleize %></option>
                             <% end %>
                         </select>
                         <label for="floatingSelect">Origin</label>
@@ -29,7 +29,7 @@
                     <div class="form-floating mt-2">
                         <select class="form-select" aria-label="Floating label select example">
                              <% @destination.each do |dt| %>
-                                <option value="<%= dt.place_name %>"><%= dt.place_name %></option>
+                                <option value="<%= dt.place_name %>"><%= dt.place_name.titleize %></option>
                             <% end %>
                         </select>
                         <label for="floatingSelect">Destination</label>
