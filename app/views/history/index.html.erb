@@ -1,3 +1,4 @@
+<a class="btn btn-danger mb-4 mt-2 rounded-pill py-3 px-4" href="/"><i class="fa-solid fa-circle-chevron-left me-2"></i> To Homepage</a>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -19,9 +20,9 @@
                     <p><b>To :</b> <%= c.checkout_destination.titleize %></p>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#propsModal"><i class="fa-solid fa-circle-info"></i></button>
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#propsModal_<%= c.id %>"><i class="fa-solid fa-circle-info"></i></button>
 
-                    <div class="modal fade" id="propsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="propsModal_<%= c.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">

@@ -75,3 +75,31 @@ body {
     margin-inline: auto;
     padding: var(--spaceMD);
 }
+
+.btn {
+    font-size: var(--textLG);
+}
+
+.btn-menu {
+    height: 100%;
+    background: var(--primaryColor);
+    margin-right: var(--spaceXMD);
+    padding-inline: var(--spaceXLG);
+    font-size: var(--textJumbo);
+    font-weight: 600;
+    color: var(--whiteColor) !important;
+    width: 23%;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    background-size: cover;
+}
+.btn {
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+}
+.btn-menu:hover, .btn:hover{
+    transform: scale(1.045);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 4.25px 12.5px;
+}

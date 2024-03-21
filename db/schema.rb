@@ -10,12 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_20_194329) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_21_152932) do
   create_table "checkouts", force: :cascade do |t|
     t.string "checkout_type", limit: 36, null: false
     t.text "checkout_desc", null: false
     t.string "checkout_destination", limit: 75, null: false
     t.string "checkout_origin", limit: 75, null: false
+    t.string "created_by", limit: 36, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "dictionaries", force: :cascade do |t|
+    t.string "dictionary_type", limit: 36, null: false
+    t.text "dictionary_name", limit: 36, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "places", force: :cascade do |t|
+    t.string "place_category", limit: 36, null: false
+    t.text "place_name", limit: 75, null: false
     t.string "created_by", limit: 36, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

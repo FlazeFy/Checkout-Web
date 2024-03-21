@@ -1,2 +1,53 @@
-<h1>Checkout#index</h1>
-<p>Find me in app/views/checkout/index.html.erb</p>
+<div style="height: 90vh; width: 1080px;" class="mt-4 d-block mx-auto">
+    <button class="btn btn-menu" data-bs-toggle="modal" data-bs-target="#addCheckoutModal"
+        style="background-image: linear-gradient(rgba(0, 0, 0, 0.45),rgba(0, 0, 0, 0.55)), url('<%= asset_path('checkout.jpg') %>');">Make Checkout</button>
+
+    <div class="modal fade" id="addCheckoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Make Checkout</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-floating">
+                        <select class="form-select" aria-label="Floating label select example">
+                            <% @dct_checkout_type.each do |dct| %>
+                                <option value="<%= dct.dictionary_name %>"><%= dct.dictionary_name %></option>
+                            <% end %>
+                        </select>
+                        <label for="floatingSelect">Checkout Type</label>
+                    </div>
+                    <div class="form-floating mt-2">
+                        <select class="form-select" aria-label="Floating label select example">
+                            <% @origin.each do |dt| %>
+                                <option value="<%= dt.place_name %>"><%= dt.place_name %></option>
+                            <% end %>
+                        </select>
+                        <label for="floatingSelect">Origin</label>
+                    </div>
+                    <div class="form-floating mt-2">
+                        <select class="form-select" aria-label="Floating label select example">
+                             <% @destination.each do |dt| %>
+                                <option value="<%= dt.place_name %>"><%= dt.place_name %></option>
+                            <% end %>
+                        </select>
+                        <label for="floatingSelect">Destination</label>
+                    </div>
+                    <div class="form-floating mt-2">
+                        <textarea class="form-control" id="floatingTextarea2" style="height: 100px"></textarea>
+                        <label for="floatingTextarea2">Description</label>
+                    </div>
+                    <button class="btn btn-success w-100 mt-4 py-3 px-2">Save Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn btn-menu" onclick="window.location.href='/history'"
+        style="background-image: linear-gradient(rgba(0, 0, 0, 0.45),rgba(0, 0, 0, 0.55)), url('<%= asset_path('history.jpg') %>');">History</button>
+    <button class="btn btn-menu" onclick="window.location.href='/setting'"
+        style="background-image: linear-gradient(rgba(0, 0, 0, 0.45),rgba(0, 0, 0, 0.55)), url('<%= asset_path('setting.jpg') %>');">Setting</button>
+    <button class="btn btn-menu" 
+        style="background-image: linear-gradient(rgba(0, 0, 0, 0.45),rgba(0, 0, 0, 0.55)), url('<%= asset_path('sign-out.jpg') %>');">Sign Out</button>
+</div>
