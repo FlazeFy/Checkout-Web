@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   Rails.application.routes.draw do
     scope "/", controller: "checkout" do
       get "/", action: "index", as: "checkout"
+      get "/stats_destination", action: "get_total_checkout_destination"
+      get "/stats_origin", action: "get_total_checkout_origin"
+      
       post "/", action: "create_checkout"
     end 
     
@@ -16,6 +19,7 @@ Rails.application.routes.draw do
 
     scope "/setting", controller: "setting" do
       get "/", action: "index", as: "setting"
+
       post "/", action: "create_place"
     end 
   end  

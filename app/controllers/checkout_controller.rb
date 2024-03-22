@@ -15,6 +15,34 @@ class CheckoutController < ApplicationController
             .select(:place_name)
   end
 
+  def get_total_checkout_destination
+    @stats = Checkout.select("checkout_destination as context, COUNT(1) as total")
+                    .group(:checkout_destination)
+                    .order("total DESC")
+                    .limit(6)
+
+    @data = @stats.map { |st| { 
+      label: st.context, 
+      value: st.total 
+    }}
+
+    render json: @data
+  end
+
+  def get_total_checkout_origin
+    @stats = Checkout.select("checkout_origin as context, COUNT(1) as total")
+                    .group(:checkout_origin)
+                    .order("total DESC")
+                    .limit(6)
+
+    @data = @stats.map { |st| { 
+      label: st.context, 
+      value: st.total 
+    }}
+
+    render json: @data
+  end
+
   # Command
   def new
     @data = Checkout.new

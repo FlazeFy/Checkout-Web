@@ -83,12 +83,11 @@ body {
 .btn-menu {
     height: 100%;
     background: var(--primaryColor);
-    margin-right: var(--spaceXMD);
     padding-inline: var(--spaceXLG);
     font-size: var(--textJumbo);
     font-weight: 600;
     color: var(--whiteColor) !important;
-    width: 23%;
+    width: 100%;
     background-position: center;
     background-repeat: no-repeat;
     position: relative;

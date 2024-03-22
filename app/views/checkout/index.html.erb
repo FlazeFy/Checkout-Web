@@ -1,72 +1,162 @@
 <div style="height: 90vh; width: 1080px;" class="mt-4 d-block mx-auto">
-    <button class="btn btn-menu" data-bs-toggle="modal" data-bs-target="#addCheckoutModal"
-        style="background-image: linear-gradient(rgba(0, 0, 0, 0.45),rgba(0, 0, 0, 0.55)), url('<%= asset_path('checkout.jpg') %>');">Make Checkout</button>
+    <div class="row w-100 h-100">
+        <div class="col-lg-3">
+            <button class="btn btn-menu" data-bs-toggle="modal" data-bs-target="#addCheckoutModal"
+                style="background-image: linear-gradient(rgba(0, 0, 0, 0.45),rgba(0, 0, 0, 0.55)), url('<%= asset_path('checkout.jpg') %>');">Make Checkout</button>
+            <div class="modal fade" id="addCheckoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Make Checkout</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <%= form_with model: @checkout do |form| %>
+                                <div class="form-floating">
+                                    <%= form.select :checkout_type,
+                                        options_for_select(
+                                            @dct_checkout_type.map { |dct| [
+                                                dct.dictionary_name.titleize, 
+                                                dct.dictionary_name
+                                                ] 
+                                            }), {}, 
+                                        { class: 'form-select', 'aria-label': 'Floating label select example' } %>
+                                    <%= form.label :checkout_type, 'Checkout Type' %>
+                                    
+                                </div>
 
-    <div class="modal fade" id="addCheckoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Make Checkout</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <div class="form-floating mt-2">
+                                    <%= form.select :checkout_origin, 
+                                        options_for_select(
+                                            @origin.map { |dt| [
+                                                dt.place_name.titleize, 
+                                                dt.place_name
+                                            ] }), {}, 
+                                        { class: 'form-select', 'aria-label': 'Floating label select example' } %>
+                                    <%= form.label :origin, 'Origin' %>
+                                    
+                                </div>
+
+                                <div class="form-floating mt-2">
+                                    <%= form.select :checkout_destination, 
+                                        options_for_select(
+                                            @destination.map { |dt| [
+                                                dt.place_name.titleize, 
+                                                dt.place_name
+                                            ] }), {}, 
+                                        { class: 'form-select', 'aria-label': 'Floating label select example' } %>
+                                    <%= form.label :destination, 'Destination' %>
+                                
+                                </div>
+
+                                <div class="form-floating mt-2">
+                                    <%= form.text_area :checkout_desc, class: 'form-control', id: 'floatingTextarea2', style: 'height: 100px' %>
+                                    <%= form.label :description, 'Description' %>
+                                
+                                </div>
+
+                                <div class="mt-4">
+                                    <%= form.submit 'Save Checkout', class: 'btn btn-success w-100 py-3 px-2' %>
+                                </div>
+                            <% end %>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <%= form_with model: @checkout do |form| %>
-                        <div class="form-floating">
-                            <%= form.select :checkout_type,
-                                options_for_select(
-                                    @dct_checkout_type.map { |dct| [
-                                        dct.dictionary_name.titleize, 
-                                        dct.dictionary_name
-                                        ] 
-                                    }), {}, 
-                                { class: 'form-select', 'aria-label': 'Floating label select example' } %>
-                            <%= form.label :checkout_type, 'Checkout Type' %>
-                            
-                        </div>
-
-                        <div class="form-floating mt-2">
-                            <%= form.select :checkout_origin, 
-                                options_for_select(
-                                    @origin.map { |dt| [
-                                        dt.place_name.titleize, 
-                                        dt.place_name
-                                    ] }), {}, 
-                                { class: 'form-select', 'aria-label': 'Floating label select example' } %>
-                            <%= form.label :origin, 'Origin' %>
-                            
-                        </div>
-
-                        <div class="form-floating mt-2">
-                            <%= form.select :checkout_destination, 
-                                options_for_select(
-                                    @destination.map { |dt| [
-                                        dt.place_name.titleize, 
-                                        dt.place_name
-                                    ] }), {}, 
-                                { class: 'form-select', 'aria-label': 'Floating label select example' } %>
-                            <%= form.label :destination, 'Destination' %>
-                           
-                        </div>
-
-                        <div class="form-floating mt-2">
-                            <%= form.text_area :checkout_desc, class: 'form-control', id: 'floatingTextarea2', style: 'height: 100px' %>
-                            <%= form.label :description, 'Description' %>
-                           
-                        </div>
-
-                        <div class="mt-4">
-                            <%= form.submit 'Save Checkout', class: 'btn btn-success w-100 py-3 px-2' %>
-                        </div>
-                    <% end %>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <button class="btn btn-menu" onclick="window.location.href='/history'"
+                style="background-image: linear-gradient(rgba(0, 0, 0, 0.45),rgba(0, 0, 0, 0.55)), url('<%= asset_path('history.jpg') %>');">History</button>
+        </div>
+        <div class="col-lg-6">
+            <div style="height: 70vh;">
+                <div class="row" style="height: 100%;">
+                    <div class="col-lg-6">
+                        <button class="btn btn-menu" onclick="window.location.href='/setting'"
+                            style="background-image: linear-gradient(rgba(0, 0, 0, 0.45),rgba(0, 0, 0, 0.55)), url('<%= asset_path('setting.jpg') %>');">Setting</button>
+                    </div>
+                    <div class="col-lg-6">
+                        <button class="btn btn-menu" 
+                            style="background-image: linear-gradient(rgba(0, 0, 0, 0.45),rgba(0, 0, 0, 0.55)), url('<%= asset_path('sign-out.jpg') %>');">Sign Out</button>
+                    </div>
                 </div>
+            </div>
+            <button class="btn btn-menu mt-3" 
+                style="height: 20vh; background-image: linear-gradient(rgba(0, 0, 0, 0.45),rgba(0, 0, 0, 0.55)), url('<%= asset_path('stats.jpg') %>');">Stats</button>
+        </div>
+    </div>
+    
+    <% 5.times do %>
+        <br>
+    <% end %>
+
+    <div class="h-100 text-center">
+        <h1>My Stats</h1>
+        <div class="row">
+            <div class="col-lg-6">
+                <h2>Checkout Origin</h2>
+                <div id="pie-chart-origin"></div>
+            </div>
+            <div class="col-lg-6">
+                <h2>Checkout Destination</h2>
+                <div id="pie-chart-destination"></div>
             </div>
         </div>
     </div>
 
-    <button class="btn btn-menu" onclick="window.location.href='/history'"
-        style="background-image: linear-gradient(rgba(0, 0, 0, 0.45),rgba(0, 0, 0, 0.55)), url('<%= asset_path('history.jpg') %>');">History</button>
-    <button class="btn btn-menu" onclick="window.location.href='/setting'"
-        style="background-image: linear-gradient(rgba(0, 0, 0, 0.45),rgba(0, 0, 0, 0.55)), url('<%= asset_path('setting.jpg') %>');">Setting</button>
-    <button class="btn btn-menu" 
-        style="background-image: linear-gradient(rgba(0, 0, 0, 0.45),rgba(0, 0, 0, 0.55)), url('<%= asset_path('sign-out.jpg') %>');">Sign Out</button>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Promise.all([
+                fetch('/stats_destination').then(response => response.json()),
+                fetch('/stats_origin').then(response => response.json())
+            ]).then(([dataDestination, dataOrigin]) => {
+                var optionsDestination = {
+                    series: dataDestination.map(item => item.value),
+                    labels: dataDestination.map(item => item.label),
+                    chart: {
+                        type: 'pie',
+                        height: 350
+                    },
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                width: 200
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }]
+                }
+
+                var chartDestination = new ApexCharts(document.querySelector("#pie-chart-destination"), optionsDestination)
+                chartDestination.render()
+
+                var optionsOrigin = {
+                    series: dataOrigin.map(item => item.value),
+                    labels: dataOrigin.map(item => item.label),
+                    chart: {
+                        type: 'pie',
+                        height: 350
+                    },
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                width: 200
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }]
+                }
+
+                var chartOrigin = new ApexCharts(document.querySelector("#pie-chart-origin"), optionsOrigin)
+                chartOrigin.render()
+            })
+        })
+    </script>
+
 </div>
