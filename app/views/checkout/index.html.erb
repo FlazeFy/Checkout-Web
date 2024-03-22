@@ -10,35 +10,54 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-floating">
-                        <select class="form-select" aria-label="Floating label select example">
-                            <% @dct_checkout_type.each do |dct| %>
-                                <option value="<%= dct.dictionary_name %>"><%= dct.dictionary_name.titleize %></option>
-                            <% end %>
-                        </select>
-                        <label for="floatingSelect">Checkout Type</label>
-                    </div>
-                    <div class="form-floating mt-2">
-                        <select class="form-select" aria-label="Floating label select example">
-                            <% @origin.each do |dt| %>
-                                <option value="<%= dt.place_name %>"><%= dt.place_name.titleize %></option>
-                            <% end %>
-                        </select>
-                        <label for="floatingSelect">Origin</label>
-                    </div>
-                    <div class="form-floating mt-2">
-                        <select class="form-select" aria-label="Floating label select example">
-                             <% @destination.each do |dt| %>
-                                <option value="<%= dt.place_name %>"><%= dt.place_name.titleize %></option>
-                            <% end %>
-                        </select>
-                        <label for="floatingSelect">Destination</label>
-                    </div>
-                    <div class="form-floating mt-2">
-                        <textarea class="form-control" id="floatingTextarea2" style="height: 100px"></textarea>
-                        <label for="floatingTextarea2">Description</label>
-                    </div>
-                    <button class="btn btn-success w-100 mt-4 py-3 px-2">Save Checkout</button>
+                    <%= form_with model: @checkout do |form| %>
+                        <div class="form-floating">
+                            <%= form.select :checkout_type,
+                                options_for_select(
+                                    @dct_checkout_type.map { |dct| [
+                                        dct.dictionary_name.titleize, 
+                                        dct.dictionary_name
+                                        ] 
+                                    }), {}, 
+                                { class: 'form-select', 'aria-label': 'Floating label select example' } %>
+                            <%= form.label :checkout_type, 'Checkout Type' %>
+                            
+                        </div>
+
+                        <div class="form-floating mt-2">
+                            <%= form.select :checkout_origin, 
+                                options_for_select(
+                                    @origin.map { |dt| [
+                                        dt.place_name.titleize, 
+                                        dt.place_name
+                                    ] }), {}, 
+                                { class: 'form-select', 'aria-label': 'Floating label select example' } %>
+                            <%= form.label :origin, 'Origin' %>
+                            
+                        </div>
+
+                        <div class="form-floating mt-2">
+                            <%= form.select :checkout_destination, 
+                                options_for_select(
+                                    @destination.map { |dt| [
+                                        dt.place_name.titleize, 
+                                        dt.place_name
+                                    ] }), {}, 
+                                { class: 'form-select', 'aria-label': 'Floating label select example' } %>
+                            <%= form.label :destination, 'Destination' %>
+                           
+                        </div>
+
+                        <div class="form-floating mt-2">
+                            <%= form.text_area :checkout_desc, class: 'form-control', id: 'floatingTextarea2', style: 'height: 100px' %>
+                            <%= form.label :description, 'Description' %>
+                           
+                        </div>
+
+                        <div class="mt-4">
+                            <%= form.submit 'Save Checkout', class: 'btn btn-success w-100 py-3 px-2' %>
+                        </div>
+                    <% end %>
                 </div>
             </div>
         </div>

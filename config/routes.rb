@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   Rails.application.routes.draw do
     scope "/", controller: "checkout" do
       get "/", action: "index", as: "checkout"
+      post "/", action: "create_checkout"
     end 
     
     scope "/history", controller: "history" do
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
 
     scope "/setting", controller: "setting" do
       get "/", action: "index", as: "setting"
+      post "/", action: "create_place"
     end 
   end  
 end

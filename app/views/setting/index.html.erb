@@ -1,4 +1,39 @@
-<a class="btn btn-danger mb-4 mt-2 rounded-pill py-3 px-4" href="/"><i class="fa-solid fa-circle-chevron-left me-2"></i> To Homepage</a>
+<a class="btn btn-danger mb-4 mt-2 me-2 rounded-pill py-3 px-4" href="/"><i class="fa-solid fa-circle-chevron-left me-2"></i> To Homepage</a>
+<a class="btn btn-success mb-4 mt-2 rounded-pill py-3 px-4" data-bs-toggle="modal" data-bs-target="#addPlaceModal"><i class="fa-solid fa-plus me-2"></i> Add New Place</a>
+
+<div class="modal fade" id="addPlaceModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Place</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <%= form_with model: @checkout do |form| %>
+                    <div class="form-floating">
+                        <%= form.select :place_category,
+                            options_for_select([
+                                'Origin','Destination'
+                            ]), {}, 
+                            { class: 'form-select', 'aria-label': 'Floating label select example' } %>
+                        <%= form.label :place_category, 'Place Category' %>
+                        
+                    </div>
+
+                    <div class="form-floating mt-2">
+                        <%= form.text_field :place_name, class: 'form-control', id: 'floatingInput' %>
+                        <%= form.label :place_name, 'Place Name' %>
+                        
+                    </div>
+
+                    <div class="mt-4">
+                        <%= form.submit 'Save Place', class: 'btn btn-success w-100 py-3 px-2' %>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-12">
         <h2>All Origin</h2>
