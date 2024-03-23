@@ -15,12 +15,15 @@ Rails.application.routes.draw do
     
     scope "/history", controller: "history" do
       get "/", action: "index", as: "history"
+
+      delete "/:id", action: "destroy_checkout"
     end 
 
     scope "/setting", controller: "setting" do
       get "/", action: "index", as: "setting"
 
       post "/", action: "create_place"
+      delete "/:id", action: "destroy_place"
     end 
   end  
 end

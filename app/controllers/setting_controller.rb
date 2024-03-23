@@ -15,14 +15,29 @@ class SettingController < ApplicationController
     @data = Place.new
   end
 
-  def create_place
-    @data = Place.new(
-      place_category: params[:place_category].downcase, 
-      place_name: params[:place_name],
-      created_by: "1"
-    )
+  def destroy_place
+    @place = Place.find(params[:id])
+    @place.destroy
 
-    if @data.save
+    redirect_to setting_path, status: :see_other
+  end
+
+  def create_place
+    if params[:place_category] != 'Origin & Destination'
+      @data = Place.create(
+        place_category: params[:place_category].downcase, 
+        place_name: params[:place_name],
+        created_by: "1"
+      )
+    else 
+      @data = [
+        { place_category: 'origin', place_name: params[:place_name], created_by: "1" },
+        { place_category: 'destination', place_name: params[:place_name], created_by: "1" }
+      ]
+      Place.create(@data)
+    end
+  
+    if @data.present?
       redirect_to '/setting'
     else
       render :new, status: :unprocessable_entity

@@ -13,7 +13,7 @@
                     <div class="form-floating">
                         <%= form.select :place_category,
                             options_for_select([
-                                'Origin','Destination'
+                                'Origin','Destination','Origin & Destination'
                             ]), {}, 
                             { class: 'form-select', 'aria-label': 'Floating label select example' } %>
                         <%= form.label :place_category, 'Place Category' %>
@@ -64,6 +64,27 @@
                                 </div>
                             </div>
                         </div>
+
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#destroyOriginModal_<%= dt.id %>"><i class="fa-solid fa-trash"></i></button>
+
+                        <div class="modal fade" id="destroyOriginModal_<%= dt.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <%= form_with model: @place, url: setting_path()+'/'+dt.id.to_s , method: :delete do |form| %>
+                                            <%= form.label :checkout_type, 'Are you sure to delete this origin?' %>
+                                            <div class="mt-4">
+                                                <%= form.submit 'Delete', class: 'btn btn-danger w-100 py-3 px-2' %>
+                                            </div>
+                                        <% end %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -94,6 +115,27 @@
                                             <label for="floatingInput">Place Name</label>
                                         </div>
                                         <button class="btn btn-success w-100 mt-2 py-3 px-2">Save Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#destroyDestinationModal_<%= dt.id %>"><i class="fa-solid fa-trash"></i></button>
+
+                        <div class="modal fade" id="destroyDestinationModal_<%= dt.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <%= form_with model: @place, url: setting_path()+'/'+dt.id.to_s , method: :delete do |form| %>
+                                            <%= form.label :checkout_type, 'Are you sure to delete this destination?' %>
+                                            <div class="mt-4">
+                                                <%= form.submit 'Delete', class: 'btn btn-danger w-100 py-3 px-2' %>
+                                            </div>
+                                        <% end %>
                                     </div>
                                 </div>
                             </div>

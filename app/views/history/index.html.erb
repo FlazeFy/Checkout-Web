@@ -43,7 +43,26 @@
                     <button type="button" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#destroyModal_<%= c.id %>"><i class="fa-solid fa-trash"></i></button>
+
+                    <div class="modal fade" id="destroyModal_<%= c.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <%= form_with model: @checkout, url: history_path(@checkout)+'/'+c.id.to_s , method: :delete do |form| %>
+                                        <%= form.label :checkout_type, 'Are you sure to delete this checkout?' %>
+                                        <div class="mt-4">
+                                            <%= form.submit 'Delete', class: 'btn btn-danger w-100 py-3 px-2' %>
+                                        </div>
+                                    <% end %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
             </tr>
         <% end %>
