@@ -19,6 +19,10 @@ Rails.application.routes.draw do
       delete "/:id", action: "destroy_checkout"
     end 
 
+    scope "/calendar", controller: "calendar" do
+      get "/", action: "index", as: "calendar"
+    end
+
     scope "/setting", controller: "setting" do
       get "/", action: "index", as: "setting"
 
