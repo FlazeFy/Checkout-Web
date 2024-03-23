@@ -49,6 +49,7 @@ class CheckoutController < ApplicationController
   end
 
   def create_checkout
+    # Create
     @data = Checkout.new(
       checkout_type: params[:checkout_type], 
       checkout_desc: params[:checkout_desc], 
@@ -57,8 +58,9 @@ class CheckoutController < ApplicationController
       created_by: "1"
     )
 
+    # Exec
     if @data.save
-      redirect_to '/history'
+      redirect_to history_path
     else
       render :new, status: :unprocessable_entity
     end

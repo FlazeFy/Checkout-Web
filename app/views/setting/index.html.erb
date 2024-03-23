@@ -13,7 +13,7 @@
                     <div class="form-floating">
                         <%= form.select :place_category,
                             options_for_select([
-                                'Origin','Destination','Origin & Destination'
+                                'Origin & Destination','Origin','Destination'
                             ]), {}, 
                             { class: 'form-select', 'aria-label': 'Floating label select example' } %>
                         <%= form.label :place_category, 'Place Category' %>
@@ -140,6 +140,22 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <h2>Checkout Type</h2>
+        <% @dct_checkout_type.each do |dt| %>
+            <div class="container-fluid px-4 py-3 mb-2 rounded">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6><%= dt.dictionary_name.titleize %></h6>
+                        <p class="mb-0"><b>Created At</b> <%= dt.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#destroyCheckoutTypeModal_<%= dt.id %>"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 </div>
             </div>

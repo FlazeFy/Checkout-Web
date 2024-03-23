@@ -2,12 +2,16 @@ class SettingController < ApplicationController
   def index
     @origin = 
       Place.where(place_category: 'origin')
-            .order(created_at: :desc)
+            .order(place_name: :desc)
             .select(:place_name, :created_at, :id)
     @destination = 
       Place.where(place_category: 'destination')
-            .order(created_at: :desc)
+            .order(place_name: :desc)
             .select(:place_name, :created_at, :id)
+    @dct_checkout_type = 
+      Dictionary.where(dictionary_type: 'checkout_type')
+            .order(dictionary_name: :desc)
+            .select(:dictionary_name, :id, :created_at)
   end
 
   # Command
@@ -23,22 +27,78 @@ class SettingController < ApplicationController
   end
 
   def create_place
+    # Attribute
+    @place_name = params[:place_name]
+    @clean_name = @place_name.gsub(' ', '').downcase
+    @found = false
+    @check = Place.where(place_category: 'origin')
+          .or(Place.where(place_category: 'destination'))
+          .select("LOWER(REPLACE(place_name, ' ', '')) as place_name, place_category")
+
     if params[:place_category] != 'Origin & Destination'
-      @data = Place.create(
-        place_category: params[:place_category].downcase, 
-        place_name: params[:place_name],
-        created_by: "1"
-      )
+      # Check availableness
+      @check.each do |dt|
+        if dt.place_name == @clean_name && dt.place_category == params[:place_category].downcase
+          @found = true
+        end
+      end
+
+      # Create
+      if @found == false 
+        @data = Place.create(
+          place_category: params[:place_category].downcase, 
+          place_name: @place_name,
+          created_by: "1"
+        )
+      else 
+        render :new, status: :unprocessable_entity
+      end
     else 
-      @data = [
-        { place_category: 'origin', place_name: params[:place_name], created_by: "1" },
-        { place_category: 'destination', place_name: params[:place_name], created_by: "1" }
-      ]
-      Place.create(@data)
+      # Check availableness
+      @category_fill = []
+      @category_founded = :null
+      @check.each do |dt|
+        if dt.place_name == @clean_name
+          @found = true
+
+          if dt.place_category == 'origin' 
+            @category_fill << 'destination'
+          else dt.place_category == 'destination' 
+            @category_fill << 'origin'
+          end
+        end
+      end
+      
+      # Create
+      if @found && @category_fill.size == 1
+        @data = Place.create(
+          place_category: @category_fill[0], 
+          place_name: @place_name,
+          created_by: "1"
+        )
+      elsif !@found && @category_fill.size != 2
+        @data = [
+          { 
+            place_category: 'origin', 
+            place_name: @place_name, 
+            created_by: "1" 
+          },
+          { 
+            place_category: 'destination', 
+            place_name: @place_name, 
+            created_by: "1" 
+          }
+        ]
+
+        Place.create(@data)
+      else 
+        render :new, status: :unprocessable_entity
+      end
     end
   
+    # Exec
     if @data.present?
-      redirect_to '/setting'
+      redirect_to setting_path
     else
       render :new, status: :unprocessable_entity
     end
