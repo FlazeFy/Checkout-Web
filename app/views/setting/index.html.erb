@@ -1,5 +1,6 @@
 <a class="btn btn-danger mb-4 mt-2 me-2 rounded-pill py-3 px-4" href="/"><i class="fa-solid fa-circle-chevron-left me-2"></i> To Homepage</a>
-<a class="btn btn-success mb-4 mt-2 rounded-pill py-3 px-4" data-bs-toggle="modal" data-bs-target="#addPlaceModal"><i class="fa-solid fa-plus me-2"></i> Add New Place</a>
+<a class="btn btn-success mb-4 mt-2 me-2 rounded-pill py-3 px-4" data-bs-toggle="modal" data-bs-target="#addPlaceModal"><i class="fa-solid fa-plus me-2"></i> Add New Place</a>
+<a class="btn btn-success mb-4 mt-2 rounded-pill py-3 px-4" data-bs-toggle="modal" data-bs-target="#addCheckoutTypeModal"><i class="fa-solid fa-plus me-2"></i> Add New Checkout Type</a>
 
 <div class="modal fade" id="addPlaceModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -9,7 +10,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <%= form_with model: @checkout do |form| %>
+                <%= form_with model: @checkout, url: setting_path()+'/place' do |form| %>
                     <div class="form-floating">
                         <%= form.select :place_category,
                             options_for_select([
@@ -34,9 +35,33 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="addCheckoutTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Checkout Type</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <%= form_with model: @checkout, url: setting_path()+'/dct' do |form| %>
+                    <div class="form-floating mt-2">
+                        <%= form.text_field :dictionary_name, class: 'form-control', id: 'floatingInput' %>
+                        <%= form.label :checkout_type, 'Checkout Type' %>
+                        <%= form.text_field :dictionary_type, class: 'form-control', id: 'floatingInput', value: 'checkout_type', hidden: true %>
+                    </div>
+
+                    <div class="mt-4">
+                        <%= form.submit 'Save Checkout Type', class: 'btn btn-success w-100 py-3 px-2' %>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-12">
-        <h2>All Origin</h2>
+        <h2 class="text-center">All Origin</h2>
         <% @origin.each do |dt| %>
             <div class="container-fluid px-4 py-3 mb-2 rounded">
                 <div class="d-flex justify-content-between">
@@ -75,7 +100,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <%= form_with model: @place, url: setting_path()+'/'+dt.id.to_s , method: :delete do |form| %>
+                                        <%= form_with model: @place, url: setting_path()+'/place/'+dt.id.to_s , method: :delete do |form| %>
                                             <%= form.label :checkout_type, 'Are you sure to delete this origin?' %>
                                             <div class="mt-4">
                                                 <%= form.submit 'Delete', class: 'btn btn-danger w-100 py-3 px-2' %>
@@ -91,7 +116,7 @@
         <% end %>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-12">
-        <h2>All Destination</h2>
+        <h2 class="text-center">All Destination</h2>
         <% @destination.each do |dt| %>
             <div class="container-fluid px-4 py-3 mb-2 rounded">
                 <div class="d-flex justify-content-between">
@@ -130,7 +155,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <%= form_with model: @place, url: setting_path()+'/'+dt.id.to_s , method: :delete do |form| %>
+                                        <%= form_with model: @place, url: setting_path()+'/place/'+dt.id.to_s , method: :delete do |form| %>
                                             <%= form.label :checkout_type, 'Are you sure to delete this destination?' %>
                                             <div class="mt-4">
                                                 <%= form.submit 'Delete', class: 'btn btn-danger w-100 py-3 px-2' %>
@@ -145,20 +170,43 @@
             </div>
         <% end %>
     </div>
-    <div class="col-lg-6 col-md-6 col-sm-12">
-        <h2>Checkout Type</h2>
-        <% @dct_checkout_type.each do |dt| %>
-            <div class="container-fluid px-4 py-3 mb-2 rounded">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <h6><%= dt.dictionary_name.titleize %></h6>
-                        <p class="mb-0"><b>Created At</b> <%= dt.created_at.strftime("%Y-%m-%d %H:%M") %></p>
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#destroyCheckoutTypeModal_<%= dt.id %>"><i class="fa-solid fa-trash"></i></button>
+    <div class="col-lg-12 col-md-12 col-sm-12 pt-3">
+        <h2 class="text-center">Checkout Type</h2>
+        <div class="row">
+            <% @dct_checkout_type.each do |dt| %>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="container-fluid px-4 py-3 mb-2 rounded">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6><%= dt.dictionary_name.titleize %></h6>
+                                <p class="mb-0"><b>Created At</b> <%= dt.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#destroyCheckoutTypeModal_<%= dt.id %>"><i class="fa-solid fa-trash"></i></button>
+
+                                <div class="modal fade" id="destroyCheckoutTypeModal_<%= dt.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <%= form_with model: @place, url: setting_path()+'/dct/'+dt.id.to_s , method: :delete do |form| %>
+                                                    <%= form.label :checkout_type, 'Are you sure to delete this checkout type?' %>
+                                                    <div class="mt-4">
+                                                        <%= form.submit 'Delete', class: 'btn btn-danger w-100 py-3 px-2' %>
+                                                    </div>
+                                                <% end %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        <% end %>
+            <% end %>
+        </div>
     </div>
 </div>

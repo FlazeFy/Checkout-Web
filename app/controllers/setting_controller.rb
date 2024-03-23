@@ -26,6 +26,13 @@ class SettingController < ApplicationController
     redirect_to setting_path, status: :see_other
   end
 
+  def destroy_dct
+    @dct = Dictionary.find(params[:id])
+    @dct.destroy
+
+    redirect_to setting_path, status: :see_other
+  end
+
   def create_place
     # Attribute
     @place_name = params[:place_name]
@@ -104,10 +111,51 @@ class SettingController < ApplicationController
     end
   end
 
+  def create_dct
+    # Attribute
+    @dct_name = params[:dictionary_name]
+    @dct_type = params[:dictionary_type]
+
+    @clean_name = @dct_name.gsub(' ', '').downcase
+    @found = false
+    @check = Dictionary.where(dictionary_type: @dct_type)
+          .select("LOWER(REPLACE(dictionary_name, ' ', '')) as dictionary_name")
+
+    # Check availableness
+    @check.each do |dt|
+      if dt.dictionary_name == @clean_name
+        @found = true
+      end
+    end
+
+    # Create
+    if @found == false 
+      @data = Dictionary.create(
+        dictionary_name: @dct_name, 
+        dictionary_type: @dct_type,
+      )
+    else 
+      render :new, status: :unprocessable_entity
+    end
+  
+    # Exec
+    if @data.save
+      redirect_to setting_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   private
   def place_params
     params.require(:place).permit(
       :place_category, :place_name
+    )
+  end
+
+  def dictionary_params
+    params.require(:place).permit(
+      :dictionary_type, :dictionary_name
     )
   end
 end

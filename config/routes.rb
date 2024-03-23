@@ -22,8 +22,10 @@ Rails.application.routes.draw do
     scope "/setting", controller: "setting" do
       get "/", action: "index", as: "setting"
 
-      post "/", action: "create_place"
-      delete "/:id", action: "destroy_place"
+      post "/place", action: "create_place"
+      post "/dct", action: "create_dct"
+      delete "/place/:id", action: "destroy_place"
+      delete "/dct/:id", action: "destroy_dct"
     end 
   end  
 end
