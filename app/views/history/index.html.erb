@@ -1,5 +1,10 @@
 <a class="btn btn-danger mb-4 mt-2 rounded-pill py-3 px-4" href="/"><i class="fa-solid fa-circle-chevron-left me-2"></i> To Homepage</a>
 <a class="btn btn-success mb-4 mt-2 rounded-pill py-3 px-4" href="/calendar"><i class="fa-solid fa-circle-chevron-right me-2"></i> To Calendar</a>
+<%= form_with model: @checkout, url: history_path()+'/save_as_csv', method: 'POST', class: 'd-inline' do |form| %>
+    <div class="mt-4 d-inline">
+        <%= form.submit 'Save as CSV', class: 'btn btn-warning mb-4 mt-2 rounded-pill py-3 px-4' %>
+    </div>
+<% end %>
 
 <table class="table table-striped" id="table">
     <thead>

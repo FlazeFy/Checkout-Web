@@ -9,6 +9,7 @@
 /.env.development*
 /.env.test*
 /.env.production*
+/public/doc
 /public/packs
 /public/packs-test
 /node_modules

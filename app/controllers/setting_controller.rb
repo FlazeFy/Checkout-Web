@@ -1,3 +1,5 @@
+require 'csv'
+
 class SettingController < ApplicationController
   def index
     @origin = 
@@ -63,7 +65,7 @@ class SettingController < ApplicationController
     else 
       # Check availableness
       @category_fill = []
-      @category_founded = :null
+      @category_founded = nil
       @check.each do |dt|
         if dt.place_name == @clean_name
           @found = true
@@ -145,6 +147,22 @@ class SettingController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+
+  # Others
+  def save_place_as_csv
+    @places = Place.all().order(place_name: :desc)
+
+    @csv_data = CSV.generate(headers: true) do |csv|
+      csv << ['id', 'place_category', 'place_name']
+      @places.each do |dt|
+        csv << [dt.id, dt.place_category, dt.place_name]
+      end
+    end
+
+    File.write("public/doc/#{Date.today}-Place Data.csv", @csv_data)
+
+    redirect_to setting_path, status: :see_other
+  end 
 
   private
   def place_params

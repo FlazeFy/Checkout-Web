@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     scope "/history", controller: "history" do
       get "/", action: "index", as: "history"
 
+      post "/save_as_csv", action: "save_as_csv"
+
       delete "/:id", action: "destroy_checkout"
     end 
 
@@ -28,6 +30,8 @@ Rails.application.routes.draw do
 
       post "/place", action: "create_place"
       post "/dct", action: "create_dct"
+      post "/save_place_as_csv", action: "save_place_as_csv"
+
       delete "/place/:id", action: "destroy_place"
       delete "/dct/:id", action: "destroy_dct"
     end 
