@@ -6,6 +6,7 @@
     </div>
 <% end %>
 
+<h2 class="text-center">All Checkout</h2>
 <table class="table table-striped" id="table">
     <thead>
         <tr>
@@ -17,11 +18,11 @@
             <th scope="col">Delete</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="tb_checkout_body">
         <% @checkouts.each do |c| %>
             <tr>
                 <td><%= c.checkout_type.titleize %></td>
-                <td><%= c.checkout_desc %></td>
+                <td><%= c.checkout_desc.present? ? c.checkout_desc : "<span class='fst-italic' style='font-size: 14px;'>- No data -</span>".html_safe %></td>
                 <td>
                     <p><b>From :</b> <%= c.checkout_origin.titleize %></p>
                     <p><b>To :</b> <%= c.checkout_destination.titleize %></p>
