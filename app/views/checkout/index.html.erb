@@ -2,7 +2,7 @@
     <div class="row w-100 h-100">
         <div class="col-lg-3">
             <button class="btn btn-menu" data-bs-toggle="modal" data-bs-target="#addCheckoutModal"
-                style="background-image: linear-gradient(rgba(0, 0, 0, 0.45),rgba(0, 0, 0, 0.55)), url('<%= asset_path('checkout.jpg') %>');">Make Checkout</button>
+                style="background-image: linear-gradient(rgba(0, 0, 0, 0.45),rgba(0, 0, 0, 0.55)), url('<%= asset_path('checkout.jpg') %>');" id="open_modal_form_checkout">Make Checkout</button>
             <div class="modal fade" id="addCheckoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -11,7 +11,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <%= form_with model: @checkout do |form| %>
+                            <%= form_with model: @checkout, id:'form_checkout' do |form| %>
                                 <div class="form-floating">
                                     <%= form.select :checkout_type,
                                         options_for_select(
@@ -20,7 +20,7 @@
                                                 dct.dictionary_name
                                                 ] 
                                             }), {}, 
-                                        { class: 'form-select', 'aria-label': 'Floating label select example' } %>
+                                        { class: 'form-select', id:'checkout_type', 'aria-label': 'Floating label select example' } %>
                                     <%= form.label :checkout_type, 'Checkout Type' %>
                                     
                                 </div>
@@ -32,7 +32,7 @@
                                                 dt.place_name.titleize, 
                                                 dt.place_name
                                             ] }), {}, 
-                                        { class: 'form-select', 'aria-label': 'Floating label select example' } %>
+                                        { class: 'form-select', id:'checkout_origin', 'aria-label': 'Floating label select example' } %>
                                     <%= form.label :origin, 'Origin' %>
                                     
                                 </div>
@@ -44,19 +44,19 @@
                                                 dt.place_name.titleize, 
                                                 dt.place_name
                                             ] }), {}, 
-                                        { class: 'form-select', 'aria-label': 'Floating label select example' } %>
+                                        { class: 'form-select', id:'checkout_destination', 'aria-label': 'Floating label select example' } %>
                                     <%= form.label :destination, 'Destination' %>
                                 
                                 </div>
 
                                 <div class="form-floating mt-2">
-                                    <%= form.text_area :checkout_desc, class: 'form-control', id: 'floatingTextarea2', style: 'height: 100px' %>
+                                    <%= form.text_area :checkout_desc, class: 'form-control', id: 'checkout_desc_input', style: 'height: 100px' %>
                                     <%= form.label :description, 'Description' %>
                                 
                                 </div>
 
                                 <div class="mt-4">
-                                    <%= form.submit 'Save Checkout', class: 'btn btn-success w-100 py-3 px-2' %>
+                                    <%= form.submit 'Save Checkout', id:'save_checkout', class: 'btn btn-success w-100 py-3 px-2' %>
                                 </div>
                             <% end %>
                         </div>

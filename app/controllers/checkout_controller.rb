@@ -62,7 +62,7 @@ class CheckoutController < ApplicationController
     if @data.save
       redirect_to history_path
     else
-      render :new, status: :unprocessable_entity
+      redirect_to history_path, status: :unprocessable_entity
     end
   end
 

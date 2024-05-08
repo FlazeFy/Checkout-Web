@@ -1,6 +1,6 @@
 <a class="btn btn-danger mb-4 mt-2 me-2 rounded-pill py-3 px-4" href="/"><i class="fa-solid fa-circle-chevron-left me-2"></i> To Homepage</a>
-<a class="btn btn-success mb-4 mt-2 me-2 rounded-pill py-3 px-4" data-bs-toggle="modal" data-bs-target="#addPlaceModal"><i class="fa-solid fa-plus me-2"></i> Add New Place</a>
-<a class="btn btn-success mb-4 mt-2 rounded-pill py-3 px-4" data-bs-toggle="modal" data-bs-target="#addCheckoutTypeModal"><i class="fa-solid fa-plus me-2"></i> Add New Checkout Type</a>
+<a class="btn btn-success mb-4 mt-2 me-2 rounded-pill py-3 px-4" data-bs-toggle="modal" data-bs-target="#addPlaceModal" id="add_place_btn"><i class="fa-solid fa-plus me-2"></i> Add New Place</a>
+<a class="btn btn-success mb-4 mt-2 rounded-pill py-3 px-4" data-bs-toggle="modal" data-bs-target="#addCheckoutTypeModal" id="add_checkout_type_btn"><i class="fa-solid fa-plus me-2"></i> Add New Checkout Type</a>
 <%= form_with model: @checkout, url: setting_path()+'/save_place_as_csv', method: 'POST', class: 'd-inline' do |form| %>
     <div class="mt-4 d-inline">
         <%= form.submit 'Save Place as CSV', class: 'btn btn-warning mb-4 mt-2 rounded-pill py-3 px-4' %>
@@ -21,19 +21,19 @@
                             options_for_select([
                                 'Origin & Destination','Origin','Destination'
                             ]), {}, 
-                            { class: 'form-select', 'aria-label': 'Floating label select example' } %>
+                            { class: 'form-select', id:'place_category', 'aria-label': 'Floating label select example' } %>
                         <%= form.label :place_category, 'Place Category' %>
                         
                     </div>
 
                     <div class="form-floating mt-2">
-                        <%= form.text_field :place_name, class: 'form-control', id: 'floatingInput' %>
+                        <%= form.text_field :place_name, class: 'form-control', id: 'place_name' %>
                         <%= form.label :place_name, 'Place Name' %>
                         
                     </div>
 
                     <div class="mt-4">
-                        <%= form.submit 'Save Place', class: 'btn btn-success w-100 py-3 px-2' %>
+                        <%= form.submit 'Save Place', id:"save_place", class: 'btn btn-success w-100 py-3 px-2' %>
                     </div>
                 <% end %>
             </div>
@@ -50,13 +50,13 @@
             <div class="modal-body">
                 <%= form_with model: @checkout, url: setting_path()+'/dct' do |form| %>
                     <div class="form-floating mt-2">
-                        <%= form.text_field :dictionary_name, class: 'form-control', id: 'floatingInput' %>
+                        <%= form.text_field :dictionary_name, class: 'form-control', id: 'checkout_type' %>
                         <%= form.label :checkout_type, 'Checkout Type' %>
                         <%= form.text_field :dictionary_type, class: 'form-control', id: 'floatingInput', value: 'checkout_type', hidden: true %>
                     </div>
 
                     <div class="mt-4">
-                        <%= form.submit 'Save Checkout Type', class: 'btn btn-success w-100 py-3 px-2' %>
+                        <%= form.submit 'Save Checkout Type', id:'save_checkout_type', class: 'btn btn-success w-100 py-3 px-2' %>
                     </div>
                 <% end %>
             </div>
